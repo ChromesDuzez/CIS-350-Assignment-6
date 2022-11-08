@@ -8,17 +8,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Target : MonoBehaviour
+public class Target : Enemy
 {
-    public float health = 50f;
 
-    public void TakeDamage(float amount)
+
+    protected override void Awake()
+    {
+        base.Awake();
+        health = 50f;
+    }
+
+    public override void TakeDamage(int amount)
     {
         health -= amount;
-        if (health <= 0)
+        if (health <= 10)
+        {
+            weapon.EnemyEatsWeapon(this);
+        }
+        if(health <= 0)
         {
             Die();
         }
+    }
+
+    protected override void Attack(int amount)
+    {
+        Debug.Log("Target can't Attack!!!");
     }
 
     void Die()

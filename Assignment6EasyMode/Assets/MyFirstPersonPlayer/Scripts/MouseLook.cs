@@ -19,6 +19,12 @@ public class MouseLook : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+
     void Update()
     {
         //get mouse input and assign it to two floats
@@ -36,5 +42,14 @@ public class MouseLook : MonoBehaviour
 
         //apply rotation to the camera based on the clamped output
         transform.localRotation = Quaternion.Euler(verticalLookRotation, 0f, 0f);
+
+        if(GameManager.paused)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 }
